@@ -1,4 +1,4 @@
-# Inventario Bienes Devolutivos
+# Verificación Inventario Bienes Devolutivos
 
 ## Objetivo de la Herramienta
 La herramienta **Inventario Bienes Devolutivos** es una aplicación de gestión diseñada para facilitar el control de inventarios de una litoteca. Utilizando la interfaz gráfica de usuario (GUI) de **Tkinter** y con la capacidad de conectarse a una base de datos **PostgreSQL**, permite realizar operaciones clave como la búsqueda, inserción y actualización de registros de inventario.
