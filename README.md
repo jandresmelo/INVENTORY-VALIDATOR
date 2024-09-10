@@ -10,7 +10,7 @@ Su objetivo es optimizar el manejo de datos del inventario, asegurando una admin
 - **Bibliotecas de Python**:
   - `tkinter`
   - `psycopg2`
-  - `xlwt`
+  - `openpyxl`
 - **PostgreSQL** (Configurado para la base de datos de inventario).
 
 ## Conexión a Base de Datos PostgreSQL
@@ -65,7 +65,7 @@ Antes de ejecutar la herramienta, asegúrate de:
 ### Registro de Búsquedas
 - Cada búsqueda se registra automáticamente en una tabla con barra de desplazamiento.
 
-### Exportación a Excel (.xls)
+### Exportación a Excel (.xlsx)
 - Exporta los resultados de las búsquedas a un archivo Excel.
 - Incluye información detallada como Código de Barras, Secuencia, Serie, Placa, Descripción, Estado, Ubicación, y Responsable de Uso.
 
