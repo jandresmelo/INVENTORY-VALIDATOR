@@ -1,111 +1,219 @@
-# Verificación Inventario Bienes Devolutivos
+# Verificación de Inventario – Bienes Devolutivos
+Aplicación de escritorio (Tkinter + PostgreSQL)
 
-## Objetivo de la Herramienta
-La herramienta **Inventario Bienes Devolutivos** es una aplicación de gestión diseñada para facilitar el control de inventarios de una litoteca. Utilizando la interfaz gráfica de usuario (GUI) de **Tkinter** y con la capacidad de conectarse a una base de datos **PostgreSQL**, permite realizar operaciones clave como la búsqueda, inserción y actualización de registros de inventario.
+## 🧭 Descripción
+**Inventario Bienes Devolutivos** es una aplicación GUI construida con **Tkinter** que permite **consultar, actualizar e insertar** registros del inventario de una litoteca sobre **PostgreSQL**.  
+Incluye búsqueda por **código de barras** y por **secuencia**, control de **no duplicación** en el reporte, exportación a **Excel (.xlsx)** y validaciones de negocio (estado, responsable, formatos).
 
-Su objetivo es optimizar el manejo de datos del inventario, asegurando una administración eficiente de los elementos almacenados, incluyendo su estado, ubicación, y responsables de su uso e inventario. Esta herramienta proporciona una experiencia de usuario amigable, donde los operadores pueden interactuar con los datos sin necesidad de conocimientos avanzados en bases de datos.
+---
 
-## Requisitos del Sistema
-- **Python 3.x** o superior.
-- **Bibliotecas de Python**:
-  - `tkinter`
-  - `psycopg2`
+## ✨ Funcionalidades clave
+- **Búsqueda por código de barras**  
+  - Escáner con Enter o digitación manual con *debounce* (≈180 ms).  
+  - Autolimpieza y foco para el siguiente escaneo.
+- **Búsqueda por secuencia**  
+  - Lista interactiva de resultados y carga del registro seleccionado.
+- **Edición/Inserción en BD**  
+  - Actualiza o inserta respetando tipos y **ENUM** `estado_enum` (`BUENO` / `INSERVIBLE`).  
+  - Convierte costo a entero o `NULL` de forma segura.
+- **Reporte sin duplicados**  
+  - Una fila por `codigo_barras` en el **Treeview** (si llega de nuevo, **se actualiza**).
+- **Exportación a Excel**  
+  - Archivo `consulta_YYYYMMDD_HHMMSS.xlsx`.  
+  - El **código de barras** se preserva como **texto** (sin pérdida de ceros a la izquierda).
+- **Campos y combos**  
+  - “**Parte**” visible junto a “**Descripción**”.  
+  - “**Almacén (Tipo)**” en **solo lectura**.  
+  - Carga de listas para **Cédula**, **Responsable** y **Ubicación**.
+- **Atajos**  
+  - F1 buscar código · F2 por secuencia · F5 guardar · F9/Esc limpiar · F12 exportar.
+
+---
+
+## 🧩 Requisitos
+- **Python 3.8+**
+- Bibliotecas:
+  - `psycopg2` *(o `psycopg2-binary` en entornos locales)*  
   - `openpyxl`
-- **PostgreSQL** (Configurado para la base de datos de inventario).
+  - `tkinter` *(viene con la instalación estándar de Python en la mayoría de OS)*
+- **PostgreSQL 12+**
 
-## Conexión a Base de Datos PostgreSQL
-La herramienta utiliza la biblioteca `psycopg2` para conectarse a una base de datos PostgreSQL. Asegúrate de tener la base de datos correctamente configurada y con las credenciales adecuadas.
+### Instalación rápida (recomendado con entorno virtual)
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux/macOS
+source .venv/bin/activate
 
-### Configuración de la Conexión
-En la sección del código, encontrarás la función para conectar a la base de datos. Asegúrate de reemplazar las credenciales con los valores correctos para tu entorno:
-
-```python
-def conectar_bd():
-    try:
-        conn = psycopg2.connect(
-            dbname="inventario",    # Nombre de la base de datos
-            user="postgres",        # Usuario de la base de datos
-            password="postgres",    # Contraseña del usuario
-            host="localhost",       # Dirección del servidor de base de datos
-            port="5432"             # Puerto del servidor
-        )
-        print("Conexión exitosa a la base de datos")
-        return conn
-    except Exception as e:
-        print(f"Error de conexión: {e}")
-        messagebox.showerror("Error de Conexión", f"No se pudo conectar a la base de datos: {e}")
-        return None
+pip install psycopg2-binary openpyxl
 ```
 
-## Importante
-Antes de ejecutar la herramienta, asegúrate de:
-- Tener acceso a la base de datos `inventario`.
-- Que el servidor de PostgreSQL esté activo y acepte conexiones en el puerto configurado.
-- Que la base de datos contenga las tablas necesarias como `inventario_verificado`, `ubicaciones_litoteca`, `personal_litoteca`, etc.
+---
 
-## Funcionalidades
-
-### Búsqueda por Código de Barras
-- Realiza búsquedas automáticas tras escribir un código de barras.
-- Actualización automática del campo de verificación del inventario al encontrar un código.
-- Limpieza automática del campo de entrada tras la búsqueda.
-
-### Inserción de Nuevos Registros
-- Inserta nuevos registros en la base de datos, incluyendo campos como Centro de Operación, Código de Barras, Placa, Descripción, Ubicación, etc.
-- Generación automática de código de barras para nuevos elementos.
-
-### Actualización de Registros
-- Modifica registros existentes, actualizando campos como Estado del Elemento, Responsable de Inventario, Cédula Responsable, y Ubicación.
-- Validación de campos clave para asegurar consistencia.
-
-### Búsqueda Interactiva en Campos Desplegables
-- Filtros interactivos para Cédula Responsable, Responsable de Inventario, Ubicación Litoteca y Responsable de Uso.
-- A medida que se escribe, las opciones se filtran dinámicamente, facilitando la selección.
-
-### Registro de Búsquedas
-- Cada búsqueda se registra automáticamente en una tabla con barra de desplazamiento.
-
-### Exportación a Excel (.xlsx)
-- Exporta los resultados de las búsquedas a un archivo Excel.
-- Incluye información detallada como Código de Barras, Secuencia, Serie, Placa, Descripción, Estado, Ubicación, y Responsable de Uso.
-
-### Campos de Formulario con Ancho Ajustable
-- Los campos de entrada tienen un ancho ajustable para mejorar la visualización de grandes volúmenes de información.
-
-### Limpieza de Campos
-- Opción para limpiar todos los campos de entrada con un solo clic.
-
-### Validación de Campos Clave
-- Asegura que los campos como Ubicación, Estado del Elemento y Responsable de Uso tengan valores válidos antes de proceder con cualquier operación.
-
-## Ventajas del Manejo de Datos a través de esta Herramienta
-- **Eficiencia en la Gestión del Inventario**: Facilita la gestión de grandes volúmenes de datos, simplificando las búsquedas, actualizaciones y registros.
-- **Interfaz Amigable**: Proporciona una GUI intuitiva para que los usuarios interactúen fácilmente con los datos.
-- **Confiabilidad en la Información**: Utiliza una base de datos robusta como PostgreSQL para asegurar la seguridad y consistencia de los datos.
-- **Facilidad de Exportación**: La capacidad de exportar registros a Excel permite la creación de informes detallados.
-- **Automatización de Tareas**: Automatiza tareas como la limpieza de campos y la actualización de estados, reduciendo el error humano.
-
-## Cómo Ejecutar la Herramienta
-
-1. Instala las dependencias necesarias usando `pip`:
-
-   ```bash
-   pip install psycopg2 xlwt
-   ```
-
-2. Configura la conexión a la base de datos en la función conectar_bd() con tus credenciales de PostgreSQL.
-
-3. Ejecuta la aplicación:
+## 🔧 Configuración
+La app lee variables de entorno para la conexión:
 
 ```bash
-   python inventario_litoteca.py
+# .env de ejemplo (o variables del sistema)
+PG_DB=inventario
+PG_USER=postgres
+PG_PASS=postgres
+PG_HOST=localhost
+PG_PORT=5432
 ```
 
-## Contribuciones
+> Si no existen, usa por defecto esos mismos valores.
 
-Si deseas contribuir a este proyecto o hacer un fork del proyecto para añadir nuevas funcionalidades.
+### Tema visual (opcional)
+Si colocas `azure.tcl` junto al script, se aplicará el tema **azure-dark**; si no está, usará **clam**.
 
-¡Gracias por utilizar **Inventario Bienes Devolutivos**!
+---
 
+## 🗄️ Esquema mínimo de BD (columnas que usa la app)
+> Ajusta tipos/tamaños a tu realidad. Este es un **mínimo funcional**.
 
+```sql
+-- ENUM de estado
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'estado_enum') THEN
+    CREATE TYPE estado_enum AS ENUM ('BUENO', 'INSERVIBLE');
+  END IF;
+END $$;
 
+-- Tabla principal
+CREATE TABLE IF NOT EXISTS public.inventario_verificado (
+  centro_operacion         text,
+  secuencia                integer,
+  codigo_barras            varchar(64) PRIMARY KEY,
+  codigo_elemento          text,
+  serie                    text,
+  placa                    text,
+  descripcion_elemento     text,
+  tipo_parte               text,
+  tipo_almacenamiento      text,
+  fecha_ingreso            date,
+  costo                    integer,
+  cedula_resp              integer,
+  responsable_inventario   text,
+  estado_elemento          estado_enum,
+  ubicacion_2025           text,
+  verificado               boolean DEFAULT false
+);
+
+-- Catálogos usados por los combos
+CREATE TABLE IF NOT EXISTS public.personal_litoteca (
+  cedula  integer PRIMARY KEY,
+  nombre  text NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.ubicaciones_litoteca (
+  ubicaciones text PRIMARY KEY
+);
+```
+
+---
+
+## ▶️ Ejecución
+```bash
+python inventario_litoteca.py
+```
+
+**Atajos de teclado**
+
+| Tecla | Acción |
+|------:|:------|
+| **Enter** en “Buscar Código” | Buscar por código (modo escáner) |
+| **F1** | Buscar por código |
+| **F2** | Buscar por secuencia |
+| **F5** | Guardar cambios (insert/update) |
+| **F9** / **Esc** | Limpiar formulario |
+| **F12** | Exportar a Excel |
+
+---
+
+## 🔒 Reglas de negocio y validaciones
+- **Estado**: solo `BUENO` o `INSERVIBLE` (se mapea a `estado_enum`).
+- **Costo**: entero o `NULL` (valores como `''`, `N/A` → `NULL`).
+- **Responsable**: obligatorio para guardar.
+- **Almacén (Tipo)**: mostrado en **readonly** (se trae desde BD).
+- **Reporte único**: si el mismo `codigo_barras` vuelve a consultarse o guardarse, la fila del informe se **reemplaza**, evitando duplicados.
+
+---
+
+## 🛠️ Detalles técnicos relevantes del código
+- **Inserciones seguras en Entry**: helper `_set_entry_text` convierte cualquier valor a cadena y respeta `readonly`, evitando el error de Tk *“wrong # args: … insert index text”*.  
+- **Debounce** de búsqueda manual: `_debounced_keyrelease` espera ~180 ms para reducir consultas innecesarias.  
+- **No duplicación en reporte**: `_actualizar_tree_unique` mantiene un dict `{codigo_barras: iid}`.  
+- **Consultas parametrizadas**: uso de `psycopg2` con parámetros para prevenir SQL injection.  
+- **Exportación a Excel**: primera columna en texto explícito (prefijo `'`) para preservar ceros a la izquierda.
+
+---
+
+## 📤 Exportación a Excel
+- Hoja **Resultados** con los encabezados:  
+  `Código Barras, Secuencia, Serie, Placa, Descripción, Parte, Estado, Ubicación 2025, Responsable, Almacén`.
+- Ajuste automático de ancho y formato **texto** en columna del código de barras.
+
+---
+
+## 🧪 Ejemplos de uso
+1. **Escanear un elemento**  
+   - Enfoca “Buscar Código”, escanea y presiona **Enter**.  
+   - La ficha se llena; el informe inferior muestra/actualiza la fila.
+2. **Buscar por secuencia**  
+   - Escribe la secuencia y presiona **Enter** o **F2**.  
+   - Selecciona “Cargar este registro”.
+3. **Guardar cambios**  
+   - Ajusta **Estado**, **Responsable**, **Ubicación** y presiona **F5**.
+
+---
+
+## 🩺 Solución de problemas
+- **“wrong # args: should be ‘… entry insert index text’”**  
+  Ocurre si se intenta insertar algo que no es texto en un `Entry`.  
+  → Ya está mitigado con `_set_entry_text`. Si reaparece, revisa logs `inventario_app.log`.
+- **“no existe el tipo «estado_enum»”**  
+  → Crea el tipo con el bloque SQL anterior.  
+- **“la sintaxis de entrada no es válida para tipo integer: «N/A»”**  
+  → La app ya convierte `N/A`/vacío a `NULL`. Verifica que el campo `costo` sea `integer`.
+- **No se ve “Almacén (Tipo)”**  
+  → Es de solo lectura y se carga desde `tipo_almacenamiento`. Asegura que la columna tenga datos.
+- **Duplicados en el informe**  
+  → El control `rows_by_barcode` evita duplicados; si exportaste antes de una actualización, vuelve a exportar tras la última consulta/guardado.
+
+---
+
+## 🔐 Seguridad
+- Credenciales vía variables de entorno (evita hardcode).  
+- Consultas parametrizadas.  
+- Registra errores en `inventario_app.log` (sin credenciales).
+
+---
+
+## 🗂️ Estructura (alto nivel)
+- **InventarioApp**  
+  - `_setup_ui`, `_setup_estilos`, `_setup_eventos_teclado`  
+  - `_buscar_codigo`, `_buscar_por_secuencia`, `_cargar_desde_secuencia`  
+  - `_guardar_bd`, `_exportar_excel`, `_limpiar_campos`  
+  - `_actualizar_tree_unique`, `_set_entry_text`  
+  - `_cargar_datos_combo`, `_conectar_bd`
+
+---
+
+## 🤝 Contribuciones
+Los *issues* y *pull requests* son bienvenidos.  
+Sugerencias típicas: cache de combos, internacionalización, empaquetado con PyInstaller, validaciones adicionales.
+
+---
+
+## 📄 Licencia
+Indica aquí la licencia elegida (p. ej., MIT). Si omites este bloque, el código queda con “todos los derechos reservados”.
+
+---
+
+### Notas de versión (cambio reciente)
+- Se agregó `_set_entry_text` para evitar errores al insertar en `Entry`.  
+- Se aseguró la visualización de **“Parte”** junto a **“Descripción”** en el reporte.  
+- Control robusto de duplicados por `codigo_barras`.

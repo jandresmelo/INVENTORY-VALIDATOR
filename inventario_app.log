@@ -1,2 +1,52 @@
 2025-09-05 07:49:53,159 - INFO - ConexiÃ³n a BD establecida correctamente
 2025-09-05 07:49:53,162 - INFO - Datos de combobox cargados correctamente
+2025-09-05 08:21:45,000 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:21:45,000 - INFO - Datos de combobox cargados correctamente
+2025-09-05 08:22:43,685 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:22:43,685 - INFO - Búsqueda exitosa para código: 047563
+2025-09-05 08:23:18,387 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:23:18,387 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry5 insert index text"
+2025-09-05 08:23:47,918 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:23:47,980 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry5 insert index text"
+2025-09-05 08:24:45,350 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:24:45,355 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry5 insert index text"
+2025-09-05 08:25:17,574 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:25:17,574 - INFO - Búsqueda exitosa para código: 047930
+2025-09-05 08:26:53,667 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:26:53,667 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:27:31,924 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:27:31,924 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:28:02,420 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:28:02,420 - INFO - Búsqueda por secuencia: 9032608 - 0 resultados
+2025-09-05 08:28:08,605 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:28:08,605 - INFO - Búsqueda por secuencia: 9032668 - 3 resultados
+2025-09-05 08:28:15,866 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:28:15,866 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:28:40,670 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:28:40,670 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:31:31,864 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:31:31,864 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:33:31,647 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:33:31,649 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:33:48,898 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:33:48,913 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry6 insert index text"
+2025-09-05 08:33:59,229 - INFO - Conexión a BD establecida correctamente
+2025-09-05 08:33:59,229 - ERROR - Error en búsqueda: wrong # args: should be ".!frame2.!labelframe.!entry5 insert index text"
+2025-09-05 09:32:57,109 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:32:57,109 - INFO - Datos de combobox cargados correctamente
+2025-09-05 09:33:09,176 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:33:09,176 - INFO - Búsqueda exitosa para código: 079497
+2025-09-05 09:33:18,910 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:33:18,910 - INFO - Búsqueda exitosa para código: 082249
+2025-09-05 09:33:28,052 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:33:28,059 - INFO - Búsqueda exitosa para código: 044949
+2025-09-05 09:33:56,626 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:33:56,626 - INFO - Búsqueda exitosa para código: 082718
+2025-09-05 09:34:08,776 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:34:08,776 - INFO - Búsqueda exitosa para código: 047262
+2025-09-05 09:34:23,059 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:34:23,059 - INFO - Búsqueda exitosa para código: 047750
+2025-09-05 09:34:34,077 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:34:34,079 - INFO - Búsqueda exitosa para código: 047063
+2025-09-05 09:34:43,359 - INFO - Conexión a BD establecida correctamente
+2025-09-05 09:34:43,359 - INFO - Búsqueda exitosa para código: 047757
